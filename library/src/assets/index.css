@@ -7,26 +7,8 @@
 .relative {
   position: relative;
 }
-.-bottom-2 {
-  bottom: -0.5rem;
-}
-.-left-2 {
-  left: -0.5rem;
-}
-.-right-2 {
-  right: -0.5rem;
-}
-.-top-2 {
-  top: -0.5rem;
-}
-.left-3 {
-  left: 0.75rem;
-}
 .right-4 {
   right: 1rem;
-}
-.top-3 {
-  top: 0.75rem;
 }
 .top-4 {
   top: 1rem;
@@ -67,14 +49,11 @@
 .w-5 {
   width: 1.25rem;
 }
-.w-\[320px\] {
-  width: 320px;
-}
 .w-full {
   width: 100%;
 }
-.max-w-full {
-  max-width: 100%;
+.max-w-\[320px\] {
+  max-width: 320px;
 }
 .flex-1 {
   flex: 1 1 0%;

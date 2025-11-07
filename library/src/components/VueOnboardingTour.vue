@@ -22,14 +22,14 @@
       <!-- Default Template Content -->
       <div
         v-if="defaultTemplate"
-        class="defaultTemplateContent flex w-[320px] flex-col gap-4 rounded-lg bg-white p-6 shadow-lg border border-gray-200 relative max-w-full"
+        class="defaultTemplateContent flex max-w-[320px] flex-col gap-4 rounded-lg bg-white p-6 shadow-lg border border-gray-200 relative w-full"
         data-test="defaultTemplateContent"
       >
         <!-- Chevron (Arrow Pointer) -->
         <span
           v-if="currentStep?.target"
           class="chevronPointer w-4 h-4 absolute bg-white rotate-45"
-          :class="styleChevron"
+          :style="styleChevron"
           data-test="chevronPointer"
         ></span>
 
@@ -153,6 +153,8 @@ export type OnboardingTourProps = {
   steps: OnboardingTourStep[]
 }
 
+type Position = 'left' | 'right' | 'top' | 'bottom' | 'dynamic_bottom' | 'dynamic_top'
+
 const props = withDefaults(
   defineProps<OnboardingTourProps>(),
 
@@ -176,7 +178,9 @@ const stylePopup = ref({})
 
 const styleOverlay = ref({})
 
-const popupPosition = ref('left')
+const styleChevron = ref({})
+
+const popupPosition: Ref<Position> = ref('left')
 
 const popup: Ref<HTMLDivElement | null> = ref(null)
 
@@ -221,21 +225,6 @@ const targetElementVisible = computed(() => {
       (targetElementBound.value.right.value >= window.innerWidth &&
         targetElementBound.value.left.value <= 0))
   )
-})
-
-const styleChevron = computed(() => {
-  switch (popupPosition.value) {
-    case 'left':
-      return '-right-2 top-3'
-    case 'right':
-      return '-left-2 top-3'
-    case 'top':
-      return 'left-3 -bottom-2'
-    case 'bottom':
-      return 'left-3 -top-2'
-    default:
-      return '-right-2 top-3'
-  }
 })
 
 const isNextStepEnabled = computed(() => currentStepIndex.value < displayedSteps.value?.length - 1)
@@ -299,23 +288,44 @@ const getStyles = () => {
       popupPosition.value = 'right'
     } else if (targetTop - popupPos.height - 40 > 0) {
       //TOP
-      stylePopup.value = {
-        top: `${targetTop - popupPos.height - 40}px`,
-        left: `${targetLeft}px`,
-        width: targetLeft + popupPos.width >= window.innerWidth - 10 ? `${window.innerWidth - targetLeft -10}px` : 'auto'
+      if(targetLeft + popupPos.width + 10 < window.innerWidth) { // Position top but check if popup left doesn't go outside of the screen
+        //FIXED
+        stylePopup.value = {
+          top: `${targetTop - popupPos.height - 40}px`,
+          left: `${targetLeft}px`,
+        }
+        popupPosition.value = 'top'
+      } else {
+        //DYNAMIC
+        stylePopup.value = {
+          top: `${targetTop - popupPos.height - 40}px`,
+          right: 0
+        }
+        popupPosition.value = 'dynamic_top'
       }
-      popupPosition.value = 'top'
     } else {
       //BOTTOM
-      stylePopup.value = {
+      if(targetLeft + popupPos.width + 10 < window.innerWidth) { // Position bottom but check if popup left doesn't go outside of the screen
+        //FIXED
+        stylePopup.value = {
         top:
           targetBottom + popupPos.height + 40 < window.innerHeight
             ? `${targetBottom + 40}px`
             : `${window.innerHeight - popupPos.height}px`,
-        left: `${targetLeft}px`,
-        width: targetLeft + popupPos.width >= window.innerWidth - 10 ? `${window.innerWidth - targetLeft -10}px` : 'auto'
+          left: `${targetLeft}px`,
+        }
+        popupPosition.value = 'bottom'
+      } else {
+        //DYNAMIC
+        stylePopup.value = {
+        top:
+          targetBottom + popupPos.height + 40 < window.innerHeight
+            ? `${targetBottom + 40}px`
+            : `${window.innerHeight - popupPos.height}px`,
+          right: 0
+        }
+        popupPosition.value = 'dynamic_bottom'
       }
-      popupPosition.value = 'bottom'
     }
   } else if(popupPos){
     // Centering the popup if no target is provided
@@ -332,6 +342,56 @@ const getStyles = () => {
       borderRadius: '10px',
       zIndex: 9999,
     }
+  }
+
+  styleChevron.value = getStyleChevron()
+}
+
+const getStyleChevron = () => {
+  const targetElPos = currentStep.value?.target && document.querySelector(currentStep.value?.target)?.getBoundingClientRect()
+  let dynamicRightPos = 12
+  switch (popupPosition.value) {
+    case 'left':
+      return {
+        right: '-0.5rem',
+        top: '0.75rem'
+      }
+    case 'right':
+      return {
+        left: '-0.5rem',
+        top: '0.75rem'
+      }
+    case 'top':
+      return {
+        left: '0.75rem',
+        bottom: '-0.5rem'
+      }
+    case 'bottom':
+      return {
+        left: '0.75rem',
+        top: '-0.5rem'
+      }
+    case 'dynamic_bottom': // dynamic_bottom
+      if (targetElPos) {
+        dynamicRightPos = window.innerWidth - targetElPos.right + (targetElPos.width ) / 2 - 8
+      }
+      return {
+        top: '-0.5rem',
+        right: `${dynamicRightPos}px`
+      }
+    case 'dynamic_top': // dynamic_top
+      if (targetElPos) {
+        dynamicRightPos = window.innerWidth - targetElPos.right + (targetElPos.width ) / 2 - 8
+      }
+      return {
+        bottom: '-0.5rem',
+        right: `${dynamicRightPos}px`
+      }
+    default: 
+      return {
+        left: '0.75rem',
+        top: '-0.5rem'
+      }
   }
 }
 
@@ -495,7 +555,6 @@ const getScrollableContainerElement = () => {
 const resizeEventListener = () => {
   if (displayOnboardingTour.value) {
     getStyles()
-
     checkAutoScroll()
   }
 }
