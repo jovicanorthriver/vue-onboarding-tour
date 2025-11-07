@@ -4,7 +4,7 @@
 import fs from 'fs';
 import postcss from 'postcss';
 import tailwindcss from 'tailwindcss';
-
+import tailwindConfig from './tailwind.config.js';
 // Generated CSS indent spaces count
 const indentSpaces = 2;
 // Generated CSS output file
@@ -15,14 +15,8 @@ const ignoreList = ['filter', 'map', 'reduce', 'find', 'push', 'pop', 'shift', '
 // Convert Tailwind CSS to native CSS
 postcss([ 
   tailwindcss({
+    ...tailwindConfig,
     content: ['./src/**/*.vue'],
-    theme: {
-      extend: {},
-    },
-    variants: {
-      extend: {},
-    },
-    plugins: [],
   }),
 ])
   .process('@tailwind utilities; @tailwind components;', { from: undefined })
