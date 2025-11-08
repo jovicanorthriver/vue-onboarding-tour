@@ -95,7 +95,7 @@
               @click="setStep(idx)"
               :data-test="`stepIndicator_${idx}`"
             >
-              <path :fill="idx === currentStepIndex ? '#3b82f6' : '#d1d5db'" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512z"/>
+              <path :key="idx === currentStepIndex ? 'current' : 'non-current'" :fill="idx === currentStepIndex ? '#3b82f6' : '#d1d5db'" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512z"/>
             </svg>
           </div>
 
