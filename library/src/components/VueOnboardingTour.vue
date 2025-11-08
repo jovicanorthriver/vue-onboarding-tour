@@ -3,7 +3,7 @@
     v-if="displayOnboardingTour"
     data-test="onboardingTour"
     class="vueOnboardingTour"
-    :class="{ 'fixed z-[9999] h-full w-full': overlay }"
+    :class="{ 'vot-fixed vot-z-[9999] vot-h-full vot-w-full': overlay }"
   >
     <!-- Overlay Background -->
     <div v-if="overlay" :style="styleOverlay" data-test="overlay" class="overlay"></div>
@@ -12,8 +12,8 @@
     <div
       ref="popup"
       :style="stylePopup"
-      :class="[targetElementVisible ? 'opacity-100' : 'opacity-0']"
-      class="popupContainer z-[9999] fixed"
+      :class="[targetElementVisible ? 'vot-opacity-100' : 'vot-opacity-0']"
+      class="popupContainer vot-z-[9999] vot-fixed"
       data-test="popupContainer"
     >
       <!-- Slot for Custom Content -->
@@ -22,21 +22,21 @@
       <!-- Default Template Content -->
       <div
         v-if="defaultTemplate"
-        class="defaultTemplateContent flex w-[320px] flex-col gap-4 rounded-lg bg-white p-6 shadow-lg border border-gray-200 relative max-w-full"
+        class="defaultTemplateContent vot-flex vot-max-w-[320px] vot-flex-col vot-gap-4 vot-rounded-lg vot-bg-white vot-p-6 vot-shadow-lg vot-border vot-border-gray-200 vot-relative vot-w-full"
         data-test="defaultTemplateContent"
       >
         <!-- Chevron (Arrow Pointer) -->
         <span
           v-if="currentStep?.target"
-          class="chevronPointer w-4 h-4 absolute bg-white rotate-45"
-          :class="styleChevron"
+          class="chevronPointer vot-w-4 vot-h-4 vot-absolute vot-bg-white vot-rotate-45"
+          :style="styleChevron"
           data-test="chevronPointer"
         ></span>
 
         <!-- Step Tag (Optional) -->
         <div
           v-if="currentStep?.tag"
-          class="stepTag text-xs font-medium text-gray-500 uppercase tracking-wider"
+          class="stepTag vot-text-xs vot-font-medium vot-text-gray-500 vot-uppercase vot-tracking-wider"
           data-test="stepTag"
         >
           {{ currentStep.tag }}
@@ -46,7 +46,7 @@
         <svg 
           xmlns="http://www.w3.org/2000/svg" 
           viewBox="0 0 384 512"
-          class="closeIcon absolute top-4 right-4 cursor-pointer w-5 h-5 fill-gray-500 hover:fill-gray-700 transition-colors"
+          class="closeIcon vot-absolute vot-top-4 vot-right-4 vot-cursor-pointer vot-w-5 vot-h-5 vot-fill-gray-500 hover:vot-fill-gray-700 vot-transition-colors"
           @click="endTour"
           data-test="closeIcon"
         >
@@ -57,7 +57,7 @@
         <div
           v-if="currentStep?.title"
           v-html="DOMPurify.sanitize(currentStep.title)"
-          class="stepTitle text-lg font-semibold text-gray-900"
+          class="stepTitle vot-text-lg vot-font-semibold vot-text-gray-900"
           data-test="stepTitle"
         />
 
@@ -65,18 +65,18 @@
         <div
           v-if="currentStep?.description"
           v-html="DOMPurify.sanitize(currentStep.description)"
-          class="stepDescription text-sm text-gray-600 leading-relaxed"
+          class="stepDescription vot-text-sm vot-text-gray-600 vot-leading-relaxed"
           data-test="stepDescription"
         />
 
         <!-- Navigation and Control -->
-        <div class="navigationControls flex w-full items-center mt-4" data-test="navigationControls">
+        <div class="navigationControls vot-flex vot-w-full vot-items-center vot-mt-4" data-test="navigationControls">
           <!-- Previous Step Icon -->
           <svg 
             xmlns="http://www.w3.org/2000/svg" 
             viewBox="0 0 320 512"
             v-if="isPreviousStepEnabled"
-            class="previousStepIcon mr-auto cursor-pointer fill-gray-500 hover:fill-gray-700 transition-colors w-4 h-4"
+            class="previousStepIcon vot-mr-auto vot-cursor-pointer vot-fill-gray-500 hover:vot-fill-gray-700 vot-transition-colors vot-w-4 vot-h-4"
             @click="goPreviousStep"
             data-test="previousStepIcon"
           >
@@ -84,18 +84,18 @@
           </svg>
 
           <!-- Step Indicators (Dots) -->
-          <div v-if="displayedSteps.length > 1" class="stepIndicators flex flex-1 justify-center gap-2" data-test="stepIndicators">
+          <div v-if="displayedSteps.length > 1" class="stepIndicators vot-flex vot-flex-1 vot-justify-center vot-gap-2" data-test="stepIndicators">
             <svg 
               xmlns="http://www.w3.org/2000/svg" 
               viewBox="0 0 512 512"
               v-for="(_, idx) in displayedSteps.length"
               :key="`dot_step_${idx}`"
               :class=" `stepIndicator_${idx}`"
-              class="cursor-pointer w-2 h-2"
+              class="vot-cursor-pointer vot-w-2 vot-h-2"
               @click="setStep(idx)"
               :data-test="`stepIndicator_${idx}`"
             >
-              <path :fill="idx === currentStepIndex ? '#3b82f6' : '#d1d5db'" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512z"/>
+              <path :key="idx === currentStepIndex ? 'current' : 'non-current'" :fill="idx === currentStepIndex ? '#3b82f6' : '#d1d5db'" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512z"/>
             </svg>
           </div>
 
@@ -104,7 +104,7 @@
             xmlns="http://www.w3.org/2000/svg" 
             viewBox="0 0 320 512"
             v-if="isNextStepEnabled"
-            class="nextStepIcon ml-auto cursor-pointer fill-gray-500 hover:fill-gray-700 transition-colors w-4 h-4"
+            class="nextStepIcon vot-ml-auto vot-cursor-pointer vot-fill-gray-500 hover:vot-fill-gray-700 vot-transition-colors vot-w-4 vot-h-4"
             @click="goNextStep"
             data-test="nextStepIcon"
           >
@@ -112,7 +112,7 @@
           </svg>
           <span
             v-else
-            class="terminateTourButton ml-auto cursor-pointer text-blue-600 hover:text-blue-800 font-medium transition-colors"
+            class="terminateTourButton vot-ml-auto vot-cursor-pointer vot-text-blue-600 hover:vot-text-blue-800 vot-font-medium vot-transition-colors"
             @click="endTour"
             data-test="terminateTourButton"
           >
@@ -153,6 +153,8 @@ export type OnboardingTourProps = {
   steps: OnboardingTourStep[]
 }
 
+type Position = 'left' | 'right' | 'top' | 'bottom' | 'dynamic_bottom' | 'dynamic_top'
+
 const props = withDefaults(
   defineProps<OnboardingTourProps>(),
 
@@ -176,7 +178,9 @@ const stylePopup = ref({})
 
 const styleOverlay = ref({})
 
-const popupPosition = ref('left')
+const styleChevron = ref({})
+
+const popupPosition: Ref<Position> = ref('left')
 
 const popup: Ref<HTMLDivElement | null> = ref(null)
 
@@ -221,21 +225,6 @@ const targetElementVisible = computed(() => {
       (targetElementBound.value.right.value >= window.innerWidth &&
         targetElementBound.value.left.value <= 0))
   )
-})
-
-const styleChevron = computed(() => {
-  switch (popupPosition.value) {
-    case 'left':
-      return '-right-2 top-3'
-    case 'right':
-      return '-left-2 top-3'
-    case 'top':
-      return 'left-3 -bottom-2'
-    case 'bottom':
-      return 'left-3 -top-2'
-    default:
-      return '-right-2 top-3'
-  }
 })
 
 const isNextStepEnabled = computed(() => currentStepIndex.value < displayedSteps.value?.length - 1)
@@ -299,23 +288,44 @@ const getStyles = () => {
       popupPosition.value = 'right'
     } else if (targetTop - popupPos.height - 40 > 0) {
       //TOP
-      stylePopup.value = {
-        top: `${targetTop - popupPos.height - 40}px`,
-        left: `${targetLeft}px`,
-        width: targetLeft + popupPos.width >= window.innerWidth - 10 ? `${window.innerWidth - targetLeft -10}px` : 'auto'
+      if(targetLeft + popupPos.width + 10 < window.innerWidth) { // Position top but check if popup left doesn't go outside of the screen
+        //FIXED
+        stylePopup.value = {
+          top: `${targetTop - popupPos.height - 40}px`,
+          left: `${targetLeft}px`,
+        }
+        popupPosition.value = 'top'
+      } else {
+        //DYNAMIC
+        stylePopup.value = {
+          top: `${targetTop - popupPos.height - 40}px`,
+          right: 0
+        }
+        popupPosition.value = 'dynamic_top'
       }
-      popupPosition.value = 'top'
     } else {
       //BOTTOM
-      stylePopup.value = {
+      if(targetLeft + popupPos.width + 10 < window.innerWidth) { // Position bottom but check if popup left doesn't go outside of the screen
+        //FIXED
+        stylePopup.value = {
         top:
           targetBottom + popupPos.height + 40 < window.innerHeight
             ? `${targetBottom + 40}px`
             : `${window.innerHeight - popupPos.height}px`,
-        left: `${targetLeft}px`,
-        width: targetLeft + popupPos.width >= window.innerWidth - 10 ? `${window.innerWidth - targetLeft -10}px` : 'auto'
+          left: `${targetLeft}px`,
+        }
+        popupPosition.value = 'bottom'
+      } else {
+        //DYNAMIC
+        stylePopup.value = {
+        top:
+          targetBottom + popupPos.height + 40 < window.innerHeight
+            ? `${targetBottom + 40}px`
+            : `${window.innerHeight - popupPos.height}px`,
+          right: 0
+        }
+        popupPosition.value = 'dynamic_bottom'
       }
-      popupPosition.value = 'bottom'
     }
   } else if(popupPos){
     // Centering the popup if no target is provided
@@ -332,6 +342,56 @@ const getStyles = () => {
       borderRadius: '10px',
       zIndex: 9999,
     }
+  }
+
+  styleChevron.value = getStyleChevron()
+}
+
+const getStyleChevron = () => {
+  const targetElPos = currentStep.value?.target && document.querySelector(currentStep.value?.target)?.getBoundingClientRect()
+  let dynamicRightPos = 12
+  switch (popupPosition.value) {
+    case 'left':
+      return {
+        right: '-0.5rem',
+        top: '0.75rem'
+      }
+    case 'right':
+      return {
+        left: '-0.5rem',
+        top: '0.75rem'
+      }
+    case 'top':
+      return {
+        left: '0.75rem',
+        bottom: '-0.5rem'
+      }
+    case 'bottom':
+      return {
+        left: '0.75rem',
+        top: '-0.5rem'
+      }
+    case 'dynamic_bottom': // dynamic_bottom
+      if (targetElPos) {
+        dynamicRightPos = window.innerWidth - targetElPos.right + (targetElPos.width ) / 2 - 8
+      }
+      return {
+        top: '-0.5rem',
+        right: `${dynamicRightPos}px`
+      }
+    case 'dynamic_top': // dynamic_top
+      if (targetElPos) {
+        dynamicRightPos = window.innerWidth - targetElPos.right + (targetElPos.width ) / 2 - 8
+      }
+      return {
+        bottom: '-0.5rem',
+        right: `${dynamicRightPos}px`
+      }
+    default: 
+      return {
+        left: '0.75rem',
+        top: '-0.5rem'
+      }
   }
 }
 
@@ -495,7 +555,6 @@ const getScrollableContainerElement = () => {
 const resizeEventListener = () => {
   if (displayOnboardingTour.value) {
     getStyles()
-
     checkAutoScroll()
   }
 }

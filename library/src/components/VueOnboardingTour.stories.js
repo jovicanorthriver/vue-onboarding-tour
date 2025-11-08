@@ -25,9 +25,9 @@ const DefaultTemplate = (args) => ({
   },
 
   template: `
-    <div class="bg-black relative min-h-screen">
+    <div class="vot-bg-black vot-relative vot-min-h-screen">
       <VueOnboardingTour v-bind="args" ref="onboardingTourPoppin" />
-      <nav class="flex float-end p-5 relative z-10">
+      <nav class="vot-flex vot-float-end vot-p-5 vot-relative vot-z-10">
         <div 
           @mouseenter="displayDocSubMenu = true" 
           @mouseleave="displayDocSubMenu = false" 
@@ -36,28 +36,30 @@ const DefaultTemplate = (args) => ({
           :aria-expanded="displayDocSubMenu" 
           aria-label="Documentation menu" 
         >
-          <div id="nav-doc" class="cursor-pointer text-purple-400 text-xl mb-2">Documentation</div>
+          <div id="nav-doc" class="vot-cursor-pointer vot-text-purple-400 vot-text-xl vot-mb-2">
+            Documentation
+          </div>
           <div
             id="nav-doc-sub-container"
-            class="bg-purple-950/70 py-5 rounded-lg flex flex-col text-white absolute right-5 w-[220px] text-center"
+            class="vot-bg-purple-950/70 vot-py-5 vot-rounded-lg vot-flex vot-flex-col vot-text-white vot-absolute vot-right-5 vot-w-[220px] vot-text-center"
             :aria-hidden="!displayDocSubMenu"
             v-if="displayDocSubMenu"
           >
             <p
-              class="cursor-pointer hover:bg-purple-950 py-1"
+              class="vot-cursor-pointer hover:vot-bg-purple-950 vot-py-1"
               @click="goToGithubPage('installation')"
               aria-label="How to install VueOnboardingTour"
             >
               How to install
             </p>
             <p
-              class="cursor-pointer hover:bg-purple-950 py-1"
+              class="vot-cursor-pointer hover:vot-bg-purple-950 vot-py-1"
               aria-label="View online documentation for VueOnboardingTour"
             >
               Online Documentation
             </p>
             <p 
-              class="cursor-pointer hover:bg-purple-950 py-1" 
+              class="vot-cursor-pointer hover:vot-bg-purple-950 vot-py-1" 
               aria-label="Explore VueOnboardingTour Storybook"
             >
               Storybook
@@ -65,49 +67,54 @@ const DefaultTemplate = (args) => ({
           </div>
         </div>
       </nav>
-      <div class="lg:max-w-[1200px] mx-auto px-10 py-[10rem]">
+
+      <div class="lg:vot-max-w-[1200px] vot-mx-auto vot-px-10 vot-py-[10rem]">
         <div
-          class="text-4xl md:text-5xl lg:text-6xl font-medium text-white text-balance py-2 text-center break-words"
+          class="vot-text-4xl md:vot-text-5xl lg:vot-text-6xl vot-font-medium vot-text-white vot-text-balance vot-py-2 vot-text-center vot-break-words"
         >
           <h1 class="title-onboarding">
             VueOnboardingTour – The Easiest Way to Guide Your Users in Your Vue App
           </h1>
         </div>
-        <div class="mt-20">
-          <div class="flex md:!flex-row flex-col text-center gap-10 md:gap-5 lg:gap-10 max-w-[500px] mx-auto md:max-w-full">
-            <div class="seamless flex-1" tabindex="0" aria-label="Seamless user onboarding section">
+
+        <div class="vot-mt-20">
+          <div class="vot-flex md:!vot-flex-row vot-flex-col vot-text-center vot-gap-10 md:vot-gap-5 lg:vot-gap-10 vot-max-w-[500px] vot-mx-auto md:vot-max-w-full">
+            <div class="seamless vot-flex-1" tabindex="0" aria-label="Seamless user onboarding section">
               <h2>
-                <span class="text-2xl font-bold text-white">Seamless User Onboarding</span>
+                <span class="vot-text-2xl vot-font-bold vot-text-white">Seamless User Onboarding</span>
               </h2>
-              <p class="text-gray-300 mt-3">
+              <p class="vot-text-gray-300 vot-mt-3">
                 VueOnboardingTour is a Vue.js component that creates guided, step-by-step onboarding tours
                 to help users navigate your app intuitively.
               </p>
             </div>
-            <div id="easy-to-use" class="easy-to-use flex-1" tabindex="0" aria-label="Lightweight and ready to use section">
+
+            <div id="easy-to-use" class="easy-to-use vot-flex-1" tabindex="0" aria-label="Lightweight and ready to use section">
               <h2>
-                <span class="text-2xl font-bold text-white">Lightweight and Ready to Use</span>
+                <span class="vot-text-2xl vot-font-bold vot-text-white">Lightweight and Ready to Use</span>
               </h2>
-              <p class="text-gray-300 mt-3">
+              <p class="vot-text-gray-300 vot-mt-3">
                 VueOnboardingTour is designed to be minimal and easy to implement, with a default
                 template that’s ready to go out of the box. Get a fully functional tour set up in
                 minutes!
               </p>
             </div>
-            <div class="customizable flex-1" tabindex="0" aria-label="Customizable section">
+
+            <div class="customizable vot-flex-1" tabindex="0" aria-label="Customizable section">
               <h2>
-                <span class="text-2xl font-bold text-white">Fully Customizable</span>
+                <span class="vot-text-2xl vot-font-bold vot-text-white">Fully Customizable</span>
               </h2>
-              <p class="text-gray-300 mt-3">
+              <p class="vot-text-gray-300 vot-mt-3">
                 Easily adapt VueOnboardingTour to your app’s unique design. With flexible options for
                 styling, you can integrate custom elements, colors, and animations to match your
                 brand.
               </p>
             </div>
           </div>
+
           <div
             aria-hidden="true"
-            class="hidden lg:!block absolute top-[calc(50%-20rem)] transform-gpu blur-3xl"
+            class="vot-hidden lg:!vot-block vot-absolute vot-top-[calc(50%-20rem)] vot-transform-gpu vot-blur-3xl"
           >
             <div
               style="
@@ -130,45 +137,48 @@ const DefaultTemplate = (args) => ({
                   73.6% 51.7%
                 );
               "
-              class="aspect-[980/632] w-[980px] bg-gradient-to-r from-[#80caff] to-[#4f46e5] opacity-20"
+              class="vot-aspect-[980/632] vot-w-[980px] vot-bg-gradient-to-r vot-from-[#80caff] vot-to-[#4f46e5] vot-opacity-20"
             ></div>
           </div>
         </div>
-        <div class="documentation flex md:!flex-row flex-col text-center gap-10 md:gap-5 lg:gap-10 max-w-[500px] mx-auto md:max-w-full text-gray-300 mt-20">
-          <div class="bg-gradient-to-r from-red-500  via-yellow-500 to-violet-500 rounded-lg flex-1 p-[2px]" @click="goToGithubPage('installation')">
-            <div class="bg-black flex flex-col gap-5 p-5 rounded-lg h-full">
-              <h2 class="text-white text-xl font-bold">Start Using VueOnboardingTour</h2>
+
+        <div class="documentation vot-flex md:!vot-flex-row vot-flex-col vot-text-center vot-gap-10 md:vot-gap-5 lg:vot-gap-10 vot-max-w-[500px] vot-mx-auto md:vot-max-w-full vot-text-gray-300 vot-mt-20">
+          <div class="vot-bg-gradient-to-r vot-from-red-500 vot-via-yellow-500 vot-to-violet-500 vot-rounded-lg vot-flex-1 vot-p-[2px]" @click="goToGithubPage('installation')">
+            <div class="vot-bg-black vot-flex vot-flex-col vot-gap-5 vot-p-5 vot-rounded-lg vot-h-full">
+              <h2 class="vot-text-white vot-text-xl vot-font-bold">Start Using VueOnboardingTour</h2>
               <p>Jump right in and add VueOnboardingTour to your project with a few simple steps.</p>
               <span
-                class="text-blue-400 leading-6 cursor-pointer hover:text-blue-600 group w-fit mx-auto relative items-center flex pr-4"
+                class="vot-text-blue-400 vot-leading-6 vot-cursor-pointer hover:vot-text-blue-600 group vot-w-fit vot-mx-auto vot-relative vot-items-center vot-flex vot-pr-4"
               >
                 Start with the installation guide
               </span>
             </div>
           </div>
-          <div class="bg-gradient-to-r from-red-500  via-yellow-500 to-violet-500 rounded-lg flex-1 p-[2px]">
-            <div class="bg-black flex flex-col gap-5 p-5 rounded-lg h-full">
-              <h2 class="text-white text-xl font-bold">Online Documentation</h2>
+
+          <div class="vot-bg-gradient-to-r vot-from-red-500 vot-via-yellow-500 vot-to-violet-500 vot-rounded-lg vot-flex-1 vot-p-[2px]">
+            <div class="vot-bg-black vot-flex vot-flex-col vot-gap-5 vot-p-5 vot-rounded-lg vot-h-full">
+              <h2 class="vot-text-white vot-text-xl vot-font-bold">Online Documentation</h2>
               <p>
                 Access the full documentation for detailed guidance on setup, customization, and
                 advanced features.
               </p>
               <span
-                class="text-blue-400 leading-6 cursor-pointer hover:text-blue-600 group w-fit mx-auto relative items-center flex pr-4"
+                class="vot-text-blue-400 vot-leading-6 vot-cursor-pointer hover:vot-text-blue-600 group vot-w-fit vot-mx-auto vot-relative vot-items-center vot-flex vot-pr-4"
               >
                 Explore the docs
               </span>
             </div>
           </div>
-          <div class="bg-gradient-to-r from-red-500  via-yellow-500 to-violet-500 rounded-lg flex-1 p-[2px]">
-            <div class="bg-black flex flex-col gap-5 p-5 rounded-lg">
-              <h2 class="text-white text-xl font-bold">Interactive Storybook</h2>
+
+          <div class="vot-bg-gradient-to-r vot-from-red-500 vot-via-yellow-500 vot-to-violet-500 vot-rounded-lg vot-flex-1 vot-p-[2px]">
+            <div class="vot-bg-black vot-flex vot-flex-col vot-gap-5 vot-p-5 vot-rounded-lg">
+              <h2 class="vot-text-white vot-text-xl vot-font-bold">Interactive Storybook</h2>
               <p>
                 Explore VueOnboardingTour in action with our Storybook. See real-time demos and experiment
                 with different configurations and styling options.
               </p>
               <span
-                class="text-blue-400 leading-6 cursor-pointer hover:text-blue-600 group w-fit mx-auto relative items-center flex pr-4"
+                class="vot-text-blue-400 vot-leading-6 vot-cursor-pointer hover:vot-text-blue-600 group vot-w-fit vot-mx-auto vot-relative vot-items-center vot-flex vot-pr-4"
               >
                 Check out the Storybook
               </span>
@@ -270,26 +280,45 @@ const CustomizedTemplate = (args) => ({
     this.$refs['onboardingTourPoppin'].startTour()
   },
   template: `
-    <div class="bg-black relative min-h-screen">
+    <div class="vot-bg-black vot-relative vot-min-h-screen">
       <VueOnboardingTour v-bind="args" ref="onboardingTourPoppin" v-slot="slotProps">
-        <div class="relative bg-yellow-50 rounded-xl shadow-2xl w-80 p-6 text-center border-4 border-dashed border-yellow-400 transform transition-all duration-500 scale-100 hover:scale-105 animate-bounceIn">
+        <div class="vot-relative vot-bg-yellow-50 vot-rounded-xl vot-shadow-2xl vot-w-80 vot-p-6 vot-text-center vot-border-4 vot-border-dashed vot-border-yellow-400 vot-transform vot-transition-all vot-duration-500 vot-scale-100 hover:vot-scale-105 vot-animate-bounceIn">
           <!-- Close Button -->
-          <button @click="closePopup" class="absolute top-3 pb-1 right-3 w-10 h-10 bg-purple-500 text-white rounded-full flex items-center justify-center text-2xl font-bold shadow-lg hover:bg-purple-700 transition duration-200 transform hover:rotate-45">&times;</button>
+          <button 
+            @click="closePopup" 
+            class="vot-absolute vot-top-3 vot-pb-1 vot-right-3 vot-w-10 vot-h-10 vot-bg-purple-500 vot-text-white vot-rounded-full vot-flex vot-items-center vot-justify-center vot-text-2xl vot-font-bold vot-shadow-lg hover:vot-bg-purple-700 vot-transition vot-duration-200 vot-transform hover:vot-rotate-45"
+          >
+            &times;
+          </button>
           
           <!-- Title -->
-          <h2 class="text-3xl font-extrabold text-yellow-600 mb-2">{{slotProps.currentStep.title}}</h2>
+          <h2 class="vot-text-3xl vot-font-extrabold vot-text-yellow-600 vot-mb-2">
+            {{slotProps.currentStep.title}}
+          </h2>
 
           <!-- Description -->
-          <p class="text-purple-700 text-lg font-medium">
+          <p class="vot-text-purple-700 vot-text-lg vot-font-medium">
             {{slotProps.currentStep.description}}
           </p>
-          <div class="mt-5 flex justify-center gap-3">
-            <button @click="previous()" class="px-4 py-2 bg-blue-500 text-white font-bold rounded-full hover:bg-blue-600 shadow-md transform hover:scale-110 transition duration-300 ease-out">Previous</button>
-            <button @click="next()" class="px-4 py-2 bg-green-500 text-white font-bold rounded-full hover:bg-green-600 shadow-md transform hover:scale-110 transition duration-300 ease-out">Next</button>
+
+          <div class="vot-mt-5 vot-flex vot-justify-center vot-gap-3">
+            <button 
+              @click="previous()" 
+              class="vot-px-4 vot-py-2 vot-bg-blue-500 vot-text-white vot-font-bold vot-rounded-full hover:vot-bg-blue-600 vot-shadow-md vot-transform hover:vot-scale-110 vot-transition vot-duration-300 vot-ease-out"
+            >
+              Previous
+            </button>
+            <button 
+              @click="next()" 
+              class="vot-px-4 vot-py-2 vot-bg-green-500 vot-text-white vot-font-bold vot-rounded-full hover:vot-bg-green-600 vot-shadow-md vot-transform hover:vot-scale-110 vot-transition vot-duration-300 vot-ease-out"
+            >
+              Next
+            </button>
           </div>
         </div>
       </VueOnboardingTour>
-<nav class="flex float-end p-5 relative z-10">
+
+      <nav class="vot-flex vot-float-end vot-p-5 vot-relative vot-z-10">
         <div 
           @mouseenter="displayDocSubMenu = true" 
           @mouseleave="displayDocSubMenu = false" 
@@ -298,29 +327,30 @@ const CustomizedTemplate = (args) => ({
           :aria-expanded="displayDocSubMenu" 
           aria-label="Documentation menu" 
         >
-          <div id="nav-doc" class="cursor-pointer text-purple-400 text-xl mb-2">Documentation</div>
+          <div id="nav-doc" class="vot-cursor-pointer vot-text-purple-400 vot-text-xl vot-mb-2">
+            Documentation
+          </div>
           <div
             id="nav-doc-sub-container"
-            class="bg-purple-950/70 py-5 rounded-lg flex flex-col text-white absolute right-5 w-[220px] text-center"
+            class="vot-bg-purple-950/70 vot-py-5 vot-rounded-lg vot-flex vot-flex-col vot-text-white vot-absolute vot-right-5 vot-w-[220px] vot-text-center"
             :aria-hidden="!displayDocSubMenu"
             v-if="displayDocSubMenu"
           >
             <p
-              class="cursor-pointer hover:bg-purple-950 py-1"
+              class="vot-cursor-pointer hover:vot-bg-purple-950 vot-py-1"
               @click="goToGithubPage('installation')"
               aria-label="How to install VueOnboardingTour"
             >
               How to install
             </p>
             <p
-              class="cursor-pointer hover:bg-purple-950 py-1"
-              @click="goToGithubPage('documentation')"
+              class="vot-cursor-pointer hover:vot-bg-purple-950 vot-py-1"
               aria-label="View online documentation for VueOnboardingTour"
             >
               Online Documentation
             </p>
             <p 
-              class="cursor-pointer hover:bg-purple-950 py-1" 
+              class="vot-cursor-pointer hover:vot-bg-purple-950 vot-py-1" 
               aria-label="Explore VueOnboardingTour Storybook"
             >
               Storybook
@@ -328,49 +358,54 @@ const CustomizedTemplate = (args) => ({
           </div>
         </div>
       </nav>
-      <div class="lg:max-w-[1200px] mx-auto px-10 py-[10rem]">
+
+      <div class="lg:vot-max-w-[1200px] vot-mx-auto vot-px-10 vot-py-[10rem]">
         <div
-          class="text-4xl md:text-5xl lg:text-6xl font-medium text-white text-balance py-2 text-center break-words"
+          class="vot-text-4xl md:vot-text-5xl lg:vot-text-6xl vot-font-medium vot-text-white vot-text-balance vot-py-2 vot-text-center vot-break-words"
         >
           <h1 class="title-onboarding">
             VueOnboardingTour – The Easiest Way to Guide Your Users in Your Vue App
           </h1>
         </div>
-        <div class="mt-20">
-          <div class="flex md:!flex-row flex-col text-center gap-10 md:gap-5 lg:gap-10 max-w-[500px] mx-auto md:max-w-full">
-            <div class="seamless flex-1" tabindex="0" aria-label="Seamless user onboarding section">
+
+        <div class="vot-mt-20">
+          <div class="vot-flex md:!vot-flex-row vot-flex-col vot-text-center vot-gap-10 md:vot-gap-5 lg:vot-gap-10 vot-max-w-[500px] vot-mx-auto md:vot-max-w-full">
+            <div class="seamless vot-flex-1" tabindex="0" aria-label="Seamless user onboarding section">
               <h2>
-                <span class="text-2xl font-bold text-white">Seamless User Onboarding</span>
+                <span class="vot-text-2xl vot-font-bold vot-text-white">Seamless User Onboarding</span>
               </h2>
-              <p class="text-gray-300 mt-3">
+              <p class="vot-text-gray-300 vot-mt-3">
                 VueOnboardingTour is a Vue.js component that creates guided, step-by-step onboarding tours
                 to help users navigate your app intuitively.
               </p>
             </div>
-            <div id="easy-to-use"  class="easy-to-use flex-1" tabindex="0" aria-label="Lightweight and ready to use section">
+
+            <div id="easy-to-use" class="easy-to-use vot-flex-1" tabindex="0" aria-label="Lightweight and ready to use section">
               <h2>
-                <span class="text-2xl font-bold text-white">Lightweight and Ready to Use</span>
+                <span class="vot-text-2xl vot-font-bold vot-text-white">Lightweight and Ready to Use</span>
               </h2>
-              <p class="text-gray-300 mt-3">
+              <p class="vot-text-gray-300 vot-mt-3">
                 VueOnboardingTour is designed to be minimal and easy to implement, with a default
                 template that’s ready to go out of the box. Get a fully functional tour set up in
                 minutes!
               </p>
             </div>
-            <div class="customizable flex-1" tabindex="0" aria-label="Customizable section">
+
+            <div class="customizable vot-flex-1" tabindex="0" aria-label="Customizable section">
               <h2>
-                <span class="text-2xl font-bold text-white">Fully Customizable</span>
+                <span class="vot-text-2xl vot-font-bold vot-text-white">Fully Customizable</span>
               </h2>
-              <p class="text-gray-300 mt-3">
+              <p class="vot-text-gray-300 vot-mt-3">
                 Easily adapt VueOnboardingTour to your app’s unique design. With flexible options for
                 styling, you can integrate custom elements, colors, and animations to match your
                 brand.
               </p>
             </div>
           </div>
+
           <div
             aria-hidden="true"
-            class="hidden lg:!block absolute top-[calc(50%-20rem)] transform-gpu blur-3xl"
+            class="vot-hidden lg:!vot-block vot-absolute vot-top-[calc(50%-20rem)] vot-transform-gpu vot-blur-3xl"
           >
             <div
               style="
@@ -393,45 +428,48 @@ const CustomizedTemplate = (args) => ({
                   73.6% 51.7%
                 );
               "
-              class="aspect-[980/632] w-[980px] bg-gradient-to-r from-[#80caff] to-[#4f46e5] opacity-20"
+              class="vot-aspect-[980/632] vot-w-[980px] vot-bg-gradient-to-r vot-from-[#80caff] vot-to-[#4f46e5] vot-opacity-20"
             ></div>
           </div>
         </div>
-        <div class="documentation flex md:!flex-row flex-col text-center gap-10 md:gap-5 lg:gap-10 max-w-[500px] mx-auto md:max-w-full text-gray-300 mt-20">
-          <div class="bg-gradient-to-r from-red-500  via-yellow-500 to-violet-500 rounded-lg flex-1 p-[2px]" @click="goToGithubPage('installation')">
-            <div class="bg-black flex flex-col gap-5 p-5 rounded-lg h-full">
-              <h2 class="text-white text-xl font-bold">Start Using VueOnboardingTour</h2>
+
+        <div class="documentation vot-flex md:!vot-flex-row vot-flex-col vot-text-center vot-gap-10 md:vot-gap-5 lg:vot-gap-10 vot-max-w-[500px] vot-mx-auto md:vot-max-w-full vot-text-gray-300 vot-mt-20">
+          <div class="vot-bg-gradient-to-r vot-from-red-500 vot-via-yellow-500 vot-to-violet-500 vot-rounded-lg vot-flex-1 vot-p-[2px]" @click="goToGithubPage('installation')">
+            <div class="vot-bg-black vot-flex vot-flex-col vot-gap-5 vot-p-5 vot-rounded-lg vot-h-full">
+              <h2 class="vot-text-white vot-text-xl vot-font-bold">Start Using VueOnboardingTour</h2>
               <p>Jump right in and add VueOnboardingTour to your project with a few simple steps.</p>
               <span
-                class="text-blue-400 leading-6 cursor-pointer hover:text-blue-600 group w-fit mx-auto relative items-center flex pr-4"
+                class="vot-text-blue-400 vot-leading-6 vot-cursor-pointer hover:vot-text-blue-600 group vot-w-fit vot-mx-auto vot-relative vot-items-center vot-flex vot-pr-4"
               >
                 Start with the installation guide
               </span>
             </div>
           </div>
-          <div class="bg-gradient-to-r from-red-500  via-yellow-500 to-violet-500 rounded-lg flex-1 p-[2px]" @click="goToGithubPage('documentation')">
-            <div class="bg-black flex flex-col gap-5 p-5 rounded-lg h-full">
-              <h2 class="text-white text-xl font-bold">Online Documentation</h2>
+
+          <div class="vot-bg-gradient-to-r vot-from-red-500 vot-via-yellow-500 vot-to-violet-500 vot-rounded-lg vot-flex-1 vot-p-[2px]">
+            <div class="vot-bg-black vot-flex vot-flex-col vot-gap-5 vot-p-5 vot-rounded-lg vot-h-full">
+              <h2 class="vot-text-white vot-text-xl vot-font-bold">Online Documentation</h2>
               <p>
                 Access the full documentation for detailed guidance on setup, customization, and
                 advanced features.
               </p>
               <span
-                class="text-blue-400 leading-6 cursor-pointer hover:text-blue-600 group w-fit mx-auto relative items-center flex pr-4"
+                class="vot-text-blue-400 vot-leading-6 vot-cursor-pointer hover:vot-text-blue-600 group vot-w-fit vot-mx-auto vot-relative vot-items-center vot-flex vot-pr-4"
               >
                 Explore the docs
               </span>
             </div>
           </div>
-          <div class="bg-gradient-to-r from-red-500  via-yellow-500 to-violet-500 rounded-lg flex-1 p-[2px]" >
-            <div class="bg-black flex flex-col gap-5 p-5 rounded-lg">
-              <h2 class="text-white text-xl font-bold">Interactive Storybook</h2>
+
+          <div class="vot-bg-gradient-to-r vot-from-red-500 vot-via-yellow-500 vot-to-violet-500 vot-rounded-lg vot-flex-1 vot-p-[2px]">
+            <div class="vot-bg-black vot-flex vot-flex-col vot-gap-5 vot-p-5 vot-rounded-lg">
+              <h2 class="vot-text-white vot-text-xl vot-font-bold">Interactive Storybook</h2>
               <p>
                 Explore VueOnboardingTour in action with our Storybook. See real-time demos and experiment
                 with different configurations and styling options.
               </p>
               <span
-                class="text-blue-400 leading-6 cursor-pointer hover:text-blue-600 group w-fit mx-auto relative items-center flex pr-4"
+                class="vot-text-blue-400 vot-leading-6 vot-cursor-pointer hover:vot-text-blue-600 group vot-w-fit vot-mx-auto vot-relative vot-items-center vot-flex vot-pr-4"
               >
                 Check out the Storybook
               </span>
@@ -440,8 +478,7 @@ const CustomizedTemplate = (args) => ({
         </div>
       </div>
     </div>
-
-  `,
+  `
 })
 export const Customized = CustomizedTemplate.bind({})
 Customized.args = {
