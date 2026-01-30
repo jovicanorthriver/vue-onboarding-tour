@@ -43,13 +43,15 @@
         </div>
 
         <!-- Close Icon -->
-        <svg 
+        <svg
+          v-if="showSkipTour"
           xmlns="http://www.w3.org/2000/svg" 
           viewBox="0 0 384 512"
           class="closeIcon vot-absolute vot-top-4 vot-right-4 vot-cursor-pointer vot-w-5 vot-h-5 vot-fill-gray-500 hover:vot-fill-gray-700 vot-transition-colors"
           @click="endTour"
           data-test="closeIcon"
         >
+          <title>Skip Tour</title> <!-- This is the accessible title -->
           <path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/>
         </svg>
 
@@ -72,19 +74,24 @@
         <!-- Navigation and Control -->
         <div class="navigationControls vot-flex vot-w-full vot-items-center vot-mt-4" data-test="navigationControls">
           <!-- Previous Step Icon -->
-          <svg 
-            xmlns="http://www.w3.org/2000/svg" 
-            viewBox="0 0 320 512"
+          <slot
             v-if="isPreviousStepEnabled"
-            class="previousStepIcon vot-mr-auto vot-cursor-pointer vot-fill-gray-500 hover:vot-fill-gray-700 vot-transition-colors vot-w-4 vot-h-4"
-            @click="goPreviousStep"
-            data-test="previousStepIcon"
+            name="prev-step-control"
+            :go-previous-step="goPreviousStep"
           >
-            <path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z"/>
-          </svg>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 320 512"
+              class="previousStepIcon vot-mr-auto vot-cursor-pointer vot-fill-gray-500 hover:vot-fill-gray-700 vot-transition-colors vot-w-4 vot-h-4"
+              @click="goPreviousStep"
+              data-test="previousStepIcon"
+            >
+              <path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z"/>
+            </svg>
+          </slot>
 
           <!-- Step Indicators (Dots) -->
-          <div v-if="displayedSteps.length > 1" class="stepIndicators vot-flex vot-flex-1 vot-justify-center vot-gap-2" data-test="stepIndicators">
+          <div v-if="showDots && displayedSteps.length > 1" class="stepIndicators vot-flex vot-flex-1 vot-justify-center vot-gap-2" data-test="stepIndicators">
             <svg 
               xmlns="http://www.w3.org/2000/svg" 
               viewBox="0 0 512 512"
@@ -100,24 +107,38 @@
           </div>
 
           <!-- Next Step Icon / End Tour -->
-          <svg 
-            xmlns="http://www.w3.org/2000/svg" 
-            viewBox="0 0 320 512"
+          <slot
             v-if="isNextStepEnabled"
-            class="nextStepIcon vot-ml-auto vot-cursor-pointer vot-fill-gray-500 hover:vot-fill-gray-700 vot-transition-colors vot-w-4 vot-h-4"
-            @click="goNextStep"
-            data-test="nextStepIcon"
+            name="next-step-control"
+            :go-next-step="goNextStep"
           >
-            <path d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"/>
-          </svg>
-          <span
+            <!-- Default fallback -->
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 320 512"
+              class="nextStepIcon vot-ml-auto vot-cursor-pointer vot-fill-gray-500 hover:vot-fill-gray-700 vot-transition-colors vot-w-4 vot-h-4"
+              @click="goNextStep"
+              data-test="nextStepIcon"
+            >
+              <path d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"/>
+            </svg>
+          </slot>
+
+          <slot
             v-else
-            class="terminateTourButton vot-ml-auto vot-cursor-pointer vot-text-blue-600 hover:vot-text-blue-800 vot-font-medium vot-transition-colors"
-            @click="endTour"
-            data-test="terminateTourButton"
+            name="final-step-control"
+            :end-tour="endTour"
+            :label-terminate="props.labelTerminate"
           >
-            {{ props.labelTerminate }}
-          </span>
+            <!-- Default fallback -->
+            <span
+              class="terminateTourButton vot-ml-auto vot-cursor-pointer vot-text-blue-600 hover:vot-text-blue-800 vot-font-medium vot-transition-colors"
+              @click="endTour"
+              data-test="terminateTourButton"
+            >
+              {{ props.labelTerminate }}
+            </span>
+          </slot>
         </div>
       </div>
     </div>
@@ -151,6 +172,8 @@ export type OnboardingTourProps = {
   endDate?: Date
   labelTerminate?: string
   steps: OnboardingTourStep[]
+  showDots?: boolean
+  showSkipTour?: boolean
 }
 
 type Position = 'left' | 'right' | 'top' | 'bottom' | 'dynamic_bottom' | 'dynamic_top'
@@ -167,6 +190,8 @@ const props = withDefaults(
     endDate: undefined,
     scrollableContainerSelector: undefined,
     labelTerminate: 'close',
+    showDots: false,
+    showSkipTour: true,
   },
 )
 
@@ -330,6 +355,7 @@ const getStyles = () => {
   } else if(popupPos){
     // Centering the popup if no target is provided
     stylePopup.value = {
+      display: 'none',
       top: `${(window.innerHeight - popupPos.height) / 2}px`,
       left: `${(window.innerWidth - popupPos.width) / 2}px`,
       position: 'fixed',

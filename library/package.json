@@ -1,6 +1,9 @@
 {
-  "name": "vue-onboarding-tour",
-  "version": "0.0.9-beta.5",
+
+  "name": "@jovicanorthriver/vue-tour",
+  "version": "1.0.0",
+  "description": "Customized version of vue-onboarding-tour",
+  "author": "Jovica",
   "private": false,
   "license": "MIT",
   "type": "module",

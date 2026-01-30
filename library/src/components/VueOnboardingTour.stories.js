@@ -26,7 +26,15 @@ const DefaultTemplate = (args) => ({
 
   template: `
     <div class="vot-bg-black vot-relative vot-min-h-screen">
-      <VueOnboardingTour v-bind="args" ref="onboardingTourPoppin" />
+      <VueOnboardingTour v-bind="args" ref="onboardingTourPoppin" show-dots>
+        <template #next-step-control="{goNextStep}">
+          <button @click="goNextStep">Next</button>
+        </template>
+
+        <template #prev-step-control="{goPreviousStep}">
+          <button @click="goPreviousStep">Prev</button>
+        </template>
+      </VueOnboardingTour>
       <nav class="vot-flex vot-float-end vot-p-5 vot-relative vot-z-10">
         <div 
           @mouseenter="displayDocSubMenu = true" 
